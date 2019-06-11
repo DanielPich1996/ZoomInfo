@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 question-titel">
+            <p class="question-number"></p> 
+            <p class="question-number">{{ "Q:" + 1}}</p>
+            <p class="question-content"> {{questionTitel}} </p>
+        </div>
+      </div>
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6" *ngFor="let answer of answers">
+              <input type='radio' 
+                     [value]='answer' 
+                     name='answer'  
+                     id='{{ answer }}' 
+                     ngModel 
+                     required 
+                     [disabled]="ifAnswered"/>
+              <label for='{{ answer }}' 
+                     class="option-button row" 
+                     [class]="this.form.value['answer'] === answer ? 
+                              checkedClass :
+                              'option-button option-not-checked row'">
+                <img *ngIf="ifAnswered && this.form.value['answer'] == answer" 
+                      class="check-image" 
+                      [src]="imageSrc">         
+                <p class="option-text"> {{answer}} </p> 
+              </label>
+          </div>
+        </div> 
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+              <button [disabled]="ifEndedQuestion || (!form.valid && !ifAnswered)" class="submit-btn" type="submit">{{buttonText}}</button>
+          </div> 
+        </div>       
+      </form>
+    </div>
+  </div>
+</div>
